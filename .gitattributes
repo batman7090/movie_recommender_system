@@ -1,0 +1,2 @@
+artifacts/similarity_vectors.pkl filter=lfs diff=lfs merge=lfs -text
+artifacts/movie_dict.pkl filter=lfs diff=lfs merge=lfs -text
