@@ -1,0 +1,32 @@
+{
+  "source": "data\\tmdb_5000_movies.csv",
+  "output": "data\\tmdb_5000_movies-cleaned.csv",
+  "input_count": 4803,
+  "output_count": 4799,
+  "removed": [
+    {
+      "csv_row": 2658,
+      "id": "370980",
+      "title": "Chiamatemi Francesco - Il Papa della gente",
+      "reason": "empty or whitespace-only overview"
+    },
+    {
+      "csv_row": 4142,
+      "id": "459488",
+      "title": "To Be Frank, Sinatra at 100",
+      "reason": "empty or whitespace-only overview"
+    },
+    {
+      "csv_row": 4403,
+      "id": "43630",
+      "title": "The Helix... Loaded",
+      "reason": "empty or whitespace-only overview"
+    },
+    {
+      "csv_row": 4433,
+      "id": "292539",
+      "title": "Food Chains",
+      "reason": "empty or whitespace-only overview"
+    }
+  ]
+}

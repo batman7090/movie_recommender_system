@@ -1,0 +1,37 @@
+name: ML pipeline CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements-dev.txt
+      - run: python -m pytest -q
+      - run: python scripts/make_demo_data.py
+      - run: python -m recommender.train --data data/demo_movies.csv --promote --min-precision 0.8 --min-lift 0.1
+      - uses: actions/upload-artifact@v4
+        with:
+          name: validated-demo-model
+          path: models/
+      - run: docker compose up --build -d
+      - name: Verify deployed API
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail http://localhost:8000/ready; then
+              curl --fail 'http://localhost:8000/recommendations/90000001?k=5'
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose logs
+          exit 1
+      - if: always()
+        run: docker compose down -v

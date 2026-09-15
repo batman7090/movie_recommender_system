@@ -218,3 +218,11 @@ __marimo__/
 # ignore the data files
 data/*.csv
 
+
+# Generated MLOps outputs
+.venv-win/
+models/
+mlruns/
+mlartifacts/
+reports/
+.test-tmp*/
